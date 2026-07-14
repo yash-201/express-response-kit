@@ -1,0 +1,14 @@
+{
+  "name": "express-response-kit-example",
+  "version": "1.0.0",
+  "description": "Example application showcasing express-response-kit integration",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "express-response-kit": "file:..",
+    "zod": "^3.23.8"
+  }
+}
