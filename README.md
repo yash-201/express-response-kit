@@ -1,5 +1,9 @@
 # express-response-engine
 
+<p align="center">
+  <img src="assets/banner.png" alt="Express Response Engine Banner" width="100%">
+</p>
+
 `express-response-engine` is a framework-agnostic, zero-runtime-dependency, TypeScript-ready response and error handling engine for Express applications. It provides global middlewares, standard API response wrappers, validation formatting, response encryption, logging hooks, and request ID support.
 
 ## Features
