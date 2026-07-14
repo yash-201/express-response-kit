@@ -24,9 +24,9 @@ app.use(
   responseInterceptor({
     logger: exampleLogger,
     // Setup AES-256-GCM encryption with a 32-byte secret key (64 hex characters)
-    // encrypt: {
-    //   secretKey: '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef',
-    // },
+    encrypt: {
+      secretKey: '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef',
+    },
   })
 );
 
@@ -85,7 +85,7 @@ app.post(
 // 3. Register global errorInterceptor to format and return errors cleanly
 app.use(
   errorInterceptor({
-    // logger: exampleLogger,
+    logger: exampleLogger,
   })
 );
 
