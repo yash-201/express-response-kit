@@ -1,6 +1,6 @@
 {
   "name": "express-response-engine",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yash-201/express-response-engine.git"
