@@ -82,7 +82,7 @@ app.get('/users', asyncHandler(async (req, res) => {
 ## API Response Formatting
 
 ### Success Response Format
-Success payloads use the keys specified (defaults to `success`, `statusCode`, `message`, `data`, and `requestId`):
+Success payloads use the keys specified (defaults to `success`, `statusCode`, `message`, `data`):
 ```json
 {
   "success": true,
@@ -90,20 +90,18 @@ Success payloads use the keys specified (defaults to `success`, `statusCode`, `m
   "message": "Users retrieved successfully",
   "data": [
     { "id": 1, "name": "Alice" }
-  ],
-  "requestId": "a50c82de9f01ab3c"
+  ]
 }
 ```
 
 ### Error Response Format
-Error responses structure details inside the `errors` property (defaults to `success`, `statusCode`, `message`, `errors`, and `requestId`):
+Error responses structure details inside the `errors` property (defaults to `success`, `statusCode`, `message` and `errors`):
 ```json
 {
   "success": false,
   "statusCode": 404,
   "message": "User not found",
-  "errors": null,
-  "requestId": "b3f021ad5c2e98f0"
+  "errors": null
 }
 ```
 
