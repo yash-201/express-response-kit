@@ -10,6 +10,9 @@ export interface ResponseKitConfig {
   encrypt?: ((data: any) => string) | { secretKey: string };
   logger?: (message: string, meta?: any) => void;
   generateRequestId?: () => string;
+  useNumericStatus?: boolean;
+  statusCodeMap?: Record<number, string>;
+  encryptEntireResponse?: boolean;
 }
 
 const DEFAULT_CONFIG: ResponseKitConfig = {
@@ -39,15 +42,18 @@ export function buildResponseBody(
   dataOrErrors: any,
   requestId?: string
 ): any {
+  const successVal = config.useNumericStatus ? (success ? 1 : 0) : success;
+  const statusVal = config.statusCodeMap ? (config.statusCodeMap[statusCode] || statusCode) : statusCode;
+
   const response: any = {
-    [config.successKey]: success,
-    [config.statusCodeKey]: statusCode,
+    [config.successKey]: successVal,
+    [config.statusCodeKey]: statusVal,
     [config.messageKey]: message,
   };
 
   if (success) {
     let data = dataOrErrors;
-    if (config.encrypt && data !== undefined && data !== null) {
+    if (config.encrypt && !config.encryptEntireResponse && data !== undefined && data !== null) {
       if (typeof config.encrypt === 'function') {
         data = config.encrypt(data);
       } else if (typeof config.encrypt === 'object' && config.encrypt.secretKey) {
@@ -58,10 +64,6 @@ export function buildResponseBody(
     response[config.dataKey] = data;
   } else {
     response[config.errorKey] = dataOrErrors;
-  }
-
-  if (requestId && config.requestIdHeader) {
-    response.requestId = requestId;
   }
 
   return response;

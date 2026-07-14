@@ -36,11 +36,20 @@ declare global {
       tooManyRequests(message?: string): this;
       /** Send a 500 Internal Server Error response */
       internalServerError(message?: string, errors?: any): this;
-      
+
+      /** Send a standard 200 success response containing failure status (legacy compatibility) */
+      failure(data?: any, message?: string): this;
+      /** Send a 404 record not found response (legacy compatibility) */
+      recordNotFound(data?: any, message?: string): this;
+      /** Send a 401 unauthorized response (legacy compatibility) */
+      unAuthorized(data?: any, message?: string): this;
+      /** Send a 200 success response bypassing logger/encryption hooks (legacy compatibility) */
+      check(data?: any, message?: string): this;
+
       /** Custom Request ID attached to the response lifecycle */
       requestId?: string;
     }
-    
+
     interface Request {
       /** Custom Request ID generated or intercepted for the request context */
       requestId?: string;

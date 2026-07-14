@@ -24,9 +24,9 @@ app.use(
   responseInterceptor({
     logger: exampleLogger,
     // Setup AES-256-GCM encryption with a 32-byte secret key (64 hex characters)
-    encrypt: {
-      secretKey: '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef',
-    },
+    // encrypt: {
+    //   secretKey: '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef',
+    // },
   })
 );
 
@@ -51,9 +51,10 @@ app.get(
   asyncHandler(async (req, res) => {
     const userId = req.params.id;
     if (userId !== '1') {
-      throw ApiError.notFound(`User with ID ${userId} does not exist`);
+      throw new CustomError(`User with ID ${userId} does not exist`, 404, 'USER_NOT_FOUND', { message: "12312" });
+      throw ApiError.badRequest(`User with ID ${userId} does not exist`);
     }
-    return res.success({ id: 1, name: 'Yash Parmar' }, 'User found');
+    return res.success({ id: 1, name: 'Yash Parmar' }, "test");
   })
 );
 
@@ -84,24 +85,24 @@ app.post(
 // 3. Register global errorInterceptor to format and return errors cleanly
 app.use(
   errorInterceptor({
-    logger: exampleLogger,
+    // logger: exampleLogger,
   })
 );
 
 // Start the server
 const server = app.listen(PORT, () => {
   console.log(`🚀 Example Express app listening at http://localhost:${PORT}`);
-  
+
   // Perform programmatic verification checks
-  runProgrammaticVerification();
+  // runProgrammaticVerification();
 });
 
 // Self-contained client-side verification requests
 async function runProgrammaticVerification() {
   console.log('\n--- Running Programmatic Verification ---');
-  
+
   const headers = { 'Content-Type': 'application/json' };
-  
+
   try {
     // 1. Test registration validation error (Zod)
     console.log('\n[TEST 1] Testing POST /api/register (Validation Error):');
@@ -119,7 +120,7 @@ async function runProgrammaticVerification() {
     const secureBody = await secureRes.json();
     console.log('Status:', secureRes.status);
     console.log('Body:', JSON.stringify(secureBody));
-    
+
     // Decrypt to verify GCM authenticity
     const decryptor = new AesEncryption('0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef');
     const decryptedData = decryptor.decrypt(secureBody.data);

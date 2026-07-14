@@ -1,5 +1,5 @@
 {
-  "name": "response-interceptor-engine",
+  "name": "express-response-kit",
   "version": "1.0.0",
   "description": "A framework-agnostic, TypeScript-ready response and error handling engine for Express, featuring global middleware, custom ApiError helpers, validation formatting, response encryption, logging hooks, and request ID support.",
   "main": "./dist/index.js",
@@ -19,7 +19,9 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "test": "ts-node scratch/test.ts"
+    "test": "ts-node scratch/test.ts",
+    "example": "npm run build && npm --prefix example start",
+    "start": "npm run example"
   },
   "keywords": [
     "express",

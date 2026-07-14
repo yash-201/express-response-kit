@@ -3,6 +3,7 @@ import { ApiError } from '../errors/ApiError';
 import { getConfig, ResponseKitConfig, buildResponseBody } from '../response/responseBuilder';
 import { formatValidationError } from '../utils/validation';
 import { StatusCodes } from '../constants/statusCodes';
+import { AesEncryption } from '../utils/encryption';
 
 export function errorInterceptor(options: Partial<ResponseKitConfig> = {}) {
   return (err: any, req: any, res: any, next: NextFunction) => {
@@ -64,7 +65,17 @@ export function errorInterceptor(options: Partial<ResponseKitConfig> = {}) {
       message = String(err);
     }
 
-    const body = buildResponseBody(config, statusCode, false, message, errors, requestId);
+    let body = buildResponseBody(config, statusCode, false, message, errors, requestId);
+
+    if (config.encrypt && config.encryptEntireResponse) {
+      const payloadStr = JSON.stringify(body);
+      if (typeof config.encrypt === 'function') {
+        body = config.encrypt(payloadStr);
+      } else if (typeof config.encrypt === 'object' && config.encrypt.secretKey) {
+        const aes = new AesEncryption(config.encrypt.secretKey);
+        body = aes.encrypt(payloadStr);
+      }
+    }
 
     if (config.logger) {
       config.logger(`API Error: ${req.method} ${req.originalUrl} - ${statusCode} - ${message}`, {
