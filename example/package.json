@@ -1,14 +1,14 @@
 {
-  "name": "express-response-kit-example",
+  "name": "express-response-engine-example",
   "version": "1.0.0",
-  "description": "Example application showcasing express-response-kit integration",
+  "description": "Example application showcasing express-response-engine integration",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
     "express": "^4.21.2",
-    "express-response-kit": "file:..",
+    "express-response-engine": "file:..",
     "zod": "^3.23.8"
   }
 }

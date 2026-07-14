@@ -1,6 +1,6 @@
-# express-response-kit
+# express-response-engine
 
-`express-response-kit` is a framework-agnostic, zero-runtime-dependency, TypeScript-ready response and error handling engine for Express applications. It provides global middlewares, standard API response wrappers, validation formatting, response encryption, logging hooks, and request ID support.
+`express-response-engine` is a framework-agnostic, zero-runtime-dependency, TypeScript-ready response and error handling engine for Express applications. It provides global middlewares, standard API response wrappers, validation formatting, response encryption, logging hooks, and request ID support.
 
 ## Features
 
@@ -20,7 +20,7 @@
 ## Installation
 
 ```bash
-npm install express-response-kit
+npm install express-response-engine
 ```
 
 ---
@@ -33,8 +33,8 @@ Import and set up the response interceptor and global error middleware in your E
 
 ```javascript
 const express = require('express');
-const asyncHandler = require('express-response-kit');
-const { responseInterceptor, errorInterceptor } = require('express-response-kit');
+const asyncHandler = require('express-response-engine');
+const { responseInterceptor, errorInterceptor } = require('express-response-engine');
 
 const app = express();
 
@@ -62,11 +62,11 @@ app.listen(3000);
 
 ### 2. TypeScript Setup
 
-If you are using TypeScript, `express-response-kit` automatically augments Express `Request` and `Response` interfaces. Just import the library once in your entry point:
+If you are using TypeScript, `express-response-engine` automatically augments Express `Request` and `Response` interfaces. Just import the library once in your entry point:
 
 ```typescript
 import express from 'express';
-import asyncHandler, { responseInterceptor, errorInterceptor, ApiError } from 'express-response-kit';
+import asyncHandler, { responseInterceptor, errorInterceptor, ApiError } from 'express-response-engine';
 
 const app = express();
 app.use(responseInterceptor());
@@ -112,7 +112,7 @@ Error responses structure details inside the `errors` property (defaults to `suc
 Instead of passing errors to `next()`, you can throw a custom `ApiError` directly from your controllers. The global `errorInterceptor` will automatically intercept it and return the correct HTTP status code.
 
 ```javascript
-const { ApiError } = require('express-response-kit');
+const { ApiError } = require('express-response-engine');
 
 // Inside a controller:
 throw ApiError.notFound('User not found');
@@ -162,7 +162,7 @@ You can customize the structure of your JSON responses globally using the `confi
 ### Global Customization
 
 ```javascript
-const { configure } = require('express-response-kit');
+const { configure } = require('express-response-engine');
 
 configure({
   successKey: 'ok',
@@ -244,12 +244,12 @@ Normalizes validator array formats:
 
 ## Custom Errors: `CustomError` vs `ApiError`
 
-`express-response-kit` provides two distinct error classes to handle different project architectures:
+`express-response-engine` provides two distinct error classes to handle different project architectures:
 
 ### 1. `ApiError` (Modern API standard)
 Designed for clean, status-driven HTTP REST APIs. It provides semantic static helpers:
 ```javascript
-const { ApiError } = require('express-response-kit');
+const { ApiError } = require('express-response-engine');
 
 // Throw directly from routes:
 throw ApiError.notFound('Resource does not exist');
@@ -259,7 +259,7 @@ throw ApiError.badRequest('Invalid fields', { email: 'Email required' });
 ### 2. `CustomError` (Legacy drop-in compatibility)
 Specifically designed to match legacy backend error patterns:
 ```javascript
-const { CustomError } = require('express-response-kit');
+const { CustomError } = require('express-response-engine');
 
 // Signature: CustomError(message, status, statusText, data)
 throw new CustomError(
@@ -275,7 +275,7 @@ The global `errorInterceptor` detects the numeric `.status` property, extracts t
 
 ## Internal Mechanics of `asyncHandler`
 
-Writing `try/catch` blocks inside every route is repetitive and prone to silent failures. `express-response-kit` exports `asyncHandler` as its default export, which acts as a wrapper for Express controllers.
+Writing `try/catch` blocks inside every route is repetitive and prone to silent failures. `express-response-engine` exports `asyncHandler` as its default export, which acts as a wrapper for Express controllers.
 
 ### How it works internally:
 ```javascript
@@ -292,7 +292,7 @@ function asyncHandler(fn) {
 
 ## Payload Encryption (AES-256-GCM)
 
-`express-response-kit` has built-in response payload encryption using Node's native `crypto` library.
+`express-response-engine` has built-in response payload encryption using Node's native `crypto` library.
 
 ### 1. Encrypting only the `data` payload
 By default, setting `encrypt` will only cipher the content of the `data` (or configured `dataKey`) property, keeping the other structural metadata keys readable:

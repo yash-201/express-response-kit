@@ -1,6 +1,14 @@
 {
-  "name": "express-response-kit",
+  "name": "express-response-engine",
   "version": "1.0.2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yash-201/express-response-engine.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yash-201/express-response-engine/issues"
+  },
+  "homepage": "https://github.com/yash-201/express-response-engine#readme",
   "description": "A framework-agnostic, TypeScript-ready response and error handling engine for Express, featuring global middleware, custom ApiError helpers, validation formatting, response encryption, logging hooks, and request ID support.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

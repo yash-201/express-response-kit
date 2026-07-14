@@ -1,13 +1,13 @@
 const express = require('express');
 const { z } = require('zod');
-const asyncHandler = require('express-response-kit');
+const asyncHandler = require('express-response-engine');
 const {
   responseInterceptor,
   errorInterceptor,
   ApiError,
   AesEncryption,
   CustomError,
-} = require('express-response-kit');
+} = require('express-response-engine');
 
 const app = express();
 const PORT = 3000;

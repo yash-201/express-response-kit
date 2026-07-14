@@ -94,7 +94,7 @@ export {
   AesEncryption,
 };
 
-// 3. CommonJS Export Override for direct require('express-response-kit') calls
+// 3. CommonJS Export Override for direct require('express-response-engine') calls
 // Using bracket notation on dynamically obtained global module reference to bypass warnings in ESModule builders
 const getGlobalModule = () => {
   try {
