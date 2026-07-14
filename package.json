@@ -1,6 +1,6 @@
 {
   "name": "express-response-kit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A framework-agnostic, TypeScript-ready response and error handling engine for Express, featuring global middleware, custom ApiError helpers, validation formatting, response encryption, logging hooks, and request ID support.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
